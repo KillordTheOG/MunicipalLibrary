@@ -1,0 +1,27 @@
+﻿@model int 
+
+@{
+	ViewBag.Title = "AssignBooks";
+}
+
+<h2>Assign Books</h2>
+
+<form action="@Url.Action("AssignBooks", "Members")" method="post">
+	@Html.Hidden("memberId", Model)
+
+	<h5>Available Books:</h5>
+	@foreach (var book in ViewBag.Books)
+	{
+		<div>
+			<label>
+				@{
+					bool isChecked = ViewBag.AssignedBookIds.Contains(book.Id);
+				}
+				<input type="checkbox" name="assignedBooks" value="@book.Id" @(isChecked ? "checked" : "") />
+				@book.Title by @book.Author
+			</label>
+		</div>
+	}
+
+	<input type="submit" value="Save" class="btn btn-primary" />
+</form>
